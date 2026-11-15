@@ -1,0 +1,50 @@
+CY LAUNCHER - SETTING UP MICROSOFT SIGN-IN
+==========================================
+
+Why this is needed
+------------------
+Every launcher needs its own "Azure app" to sign players in with Microsoft.
+Since 2023, Mojang also has to manually approve each NEW app before it is
+allowed to log into Minecraft. Until they approve yours, Cy Launcher can sign
+you into Microsoft but Minecraft will refuse the login (the launcher will tell
+you this clearly). There is no published review time.
+
+Step 1 - Create the Azure app (free, about 5 minutes)
+-----------------------------------------------------
+1. Go to https://portal.azure.com and sign in with any Microsoft account.
+2. Search for "App registrations" and open it, then click "New registration".
+3. Name: Cy Launcher
+   Supported account types: "Personal Microsoft accounts only"
+   Redirect URI: leave empty.
+   Click "Register".
+4. In the left menu open "Authentication".
+   Under "Advanced settings", set "Allow public client flows" to YES. Click Save.
+   (Cy Launcher uses the "device code" sign-in, which needs this.)
+5. Go back to "Overview" and copy the "Application (client) ID".
+   It looks like: 12345678-abcd-1234-abcd-1234567890ab
+6. Open Cy Launcher > Settings and paste it into "Azure Application (client) ID".
+
+Step 2 - Ask Mojang to approve it
+---------------------------------
+1. Open Mojang's application form:
+   https://aka.ms/mce-reviewappid
+   (Background: search "Java Edition Game Service API Review or Application
+    Process" for Mojang's help article about this review.)
+2. Fill it in to request access, giving your Application
+   (client) ID from Step 1 and a short description, e.g.:
+   "Cy Launcher: a personal launcher for my Fabric client mod, Cy Client.
+    It signs users in with the device code flow and launches Minecraft."
+3. Wait for Mojang's reply. Once approved, Sign in in Cy Launcher just works.
+
+How sign-in works once approved
+-------------------------------
+- Click "Sign in". The launcher shows a short code and opens microsoft.com/link.
+- Enter the code, sign in, and you're done. The launcher remembers you
+  (your login is stored encrypted for your Windows user only).
+- Your password is never seen or stored by Cy Launcher.
+
+Where things are stored
+-----------------------
+%APPDATA%\.cyclient\          game files, Java, settings
+%APPDATA%\.cyclient\game\     your worlds, mods, screenshots, Cy Client config
+%APPDATA%\.cyclient\launcher-log.txt   launcher log (helpful for bug reports)
